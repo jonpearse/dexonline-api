@@ -1,0 +1,802 @@
+---
+# This data would normally come from Dex’s downloads, but the files only contain
+# the ‘description’ fields which are … fine, but not as granular as I’d like.
+# While I could parse the descriptions out in code—and in fact used to—this is
+# a much cleaner + simpler way of doing it.
+#
+# Of course, Dex _could_ change their schema + break everything, but I figure
+# that’s probably fairly unlikely + I can deal with that as and when it happens.
+
+- id: 1
+  description: Substantiv masculin, Nominativ-Acuzativ, singular, nearticulat
+  categorie: substantiv
+  gen: masculin
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: false
+
+- id: 2
+  description: Substantiv masculin, Genitiv-Dativ, singular, nearticulat
+  categorie: substantiv
+  gen: masculin
+  caz: genitiv_dativ
+  plural: false
+  articulat: false
+
+- id: 3
+  description: Substantiv masculin, Nominativ-Acuzativ, plural, nearticulat
+  categorie: substantiv
+  gen: masculin
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: false
+
+- id: 4
+  description: Substantiv masculin, Genitiv-Dativ, plural, nearticulat
+  categorie: substantiv
+  gen: masculin
+  caz: genitiv_dativ
+  plural: true
+  articulat: false
+
+- id: 5
+  description: Substantiv masculin, Nominativ-Acuzativ, singular, articulat
+  categorie: substantiv
+  gen: masculin
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: true
+
+- id: 6
+  description: Substantiv masculin, Genitiv-Dativ, singular, articulat
+  categorie: substantiv
+  gen: masculin
+  caz: genitiv_dativ
+  plural: false
+  articulat: true
+
+- id: 7
+  description: Substantiv masculin, Nominativ-Acuzativ, plural, articulat
+  categorie: substantiv
+  gen: masculin
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: true
+
+- id: 8
+  description: Substantiv masculin, Genitiv-Dativ, plural, articulat
+  categorie: substantiv
+  gen: masculin
+  caz: genitiv_dativ
+  plural: true
+  articulat: true
+
+- id: 9
+  description: Substantiv feminin, Nominativ-Acuzativ, singular, nearticulat
+  categorie: substantiv
+  gen: feminin
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: false
+
+- id: 10
+  description: Substantiv feminin, Genitiv-Dativ, singular, nearticulat
+  categorie: substantiv
+  gen: feminin
+  caz: genitiv_dativ
+  plural: false
+  articulat: false
+
+- id: 11
+  description: Substantiv feminin, Nominativ-Acuzativ, plural, nearticulat
+  categorie: substantiv
+  gen: feminin
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: false
+
+- id: 12
+  description: Substantiv feminin, Genitiv-Dativ, plural, nearticulat
+  categorie: substantiv
+  gen: feminin
+  caz: genitiv_dativ
+  plural: true
+  articulat: false
+
+- id: 13
+  description: Substantiv feminin, Nominativ-Acuzativ, singular, articulat
+  categorie: substantiv
+  gen: feminin
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: true
+
+- id: 14
+  description: Substantiv feminin, Genitiv-Dativ, singular, articulat
+  categorie: substantiv
+  gen: feminin
+  caz: genitiv_dativ
+  plural: false
+  articulat: true
+
+- id: 15
+  description: Substantiv feminin, Nominativ-Acuzativ, plural, articulat
+  categorie: substantiv
+  gen: feminin
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: true
+
+- id: 16
+  description: Substantiv feminin, Genitiv-Dativ, plural, articulat
+  categorie: substantiv
+  gen: feminin
+  caz: genitiv_dativ
+  plural: true
+  articulat: true
+
+- id: 17
+  description: Substantiv neutru, Nominativ-Acuzativ, singular, nearticulat
+  categorie: substantiv
+  gen: neutru
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: false
+
+- id: 18
+  description: Substantiv neutru, Genitiv-Dativ, singular, nearticulat
+  categorie: substantiv
+  gen: neutru
+  caz: genitiv_dativ
+  plural: false
+  articulat: false
+
+- id: 19
+  description: Substantiv neutru, Nominativ-Acuzativ, plural, nearticulat
+  categorie: substantiv
+  gen: neutru
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: false
+
+- id: 20
+  description: Substantiv neutru, Genitiv-Dativ, plural, nearticulat
+  categorie: substantiv
+  gen: neutru
+  caz: genitiv_dativ
+  plural: true
+  articulat: false
+
+- id: 21
+  description: Substantiv neutru, Nominativ-Acuzativ, singular, articulat
+  categorie: substantiv
+  gen: neutru
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: true
+
+- id: 22
+  description: Substantiv neutru, Genitiv-Dativ, singular, articulat
+  categorie: substantiv
+  gen: neutru
+  caz: genitiv_dativ
+  plural: false
+  articulat: true
+
+- id: 23
+  description: Substantiv neutru, Nominativ-Acuzativ, plural, articulat
+  categorie: substantiv
+  gen: neutru
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: true
+
+- id: 24
+  description: Substantiv neutru, Genitiv-Dativ, plural, articulat
+  categorie: substantiv
+  gen: neutru
+  caz: genitiv_dativ
+  plural: true
+  articulat: true
+
+- id: 25
+  description: Adjectiv, masculin, Nominativ-Acuzativ, singular, nearticulat
+  categorie: adjectiv
+  gen: masculin
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: false
+
+- id: 26
+  description: Adjectiv, masculin, Genitiv-Dativ, singular, nearticulat
+  categorie: adjectiv
+  gen: masculin
+  caz: genitiv_dativ
+  plural: false
+  articulat: false
+
+- id: 27
+  description: Adjectiv, masculin, Nominativ-Acuzativ, plural, nearticulat
+  categorie: adjectiv
+  gen: masculin
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: false
+
+- id: 28
+  description: Adjectiv, masculin, Genitiv-Dativ, plural, nearticulat
+  categorie: adjectiv
+  gen: masculin
+  caz: genitiv_dativ
+  plural: true
+  articulat: false
+
+- id: 29
+  description: Adjectiv, masculin, Nominativ-Acuzativ, singular, articulat
+  categorie: adjectiv
+  gen: masculin
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: true
+
+- id: 30
+  description: Adjectiv, masculin, Genitiv-Dativ, singular, articulat
+  categorie: adjectiv
+  gen: masculin
+  caz: genitiv_dativ
+  plural: false
+  articulat: true
+
+- id: 31
+  description: Adjectiv, masculin, Nominativ-Acuzativ, plural, articulat
+  categorie: adjectiv
+  gen: masculin
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: true
+
+- id: 32
+  description: Adjectiv, masculin, Genitiv-Dativ, plural, articulat
+  categorie: adjectiv
+  gen: masculin
+  caz: genitiv_dativ
+  plural: true
+  articulat: true
+
+- id: 33
+  description: Adjectiv, feminin, Nominativ-Acuzativ, singular, nearticulat
+  categorie: adjectiv
+  gen: feminin
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: false
+
+- id: 34
+  description: Adjectiv, feminin, Genitiv-Dativ, singular, nearticulat
+  categorie: adjectiv
+  gen: feminin
+  caz: genitiv_dativ
+  plural: false
+  articulat: false
+
+- id: 35
+  description: Adjectiv, feminin, Nominativ-Acuzativ, plural, nearticulat
+  categorie: adjectiv
+  gen: feminin
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: false
+
+- id: 36
+  description: Adjectiv, feminin, Genitiv-Dativ, plural, nearticulat
+  categorie: adjectiv
+  gen: feminin
+  caz: genitiv_dativ
+  plural: true
+  articulat: false
+
+- id: 37
+  description: Adjectiv, feminin, Nominativ-Acuzativ, singular, articulat
+  categorie: adjectiv
+  gen: feminin
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: true
+
+- id: 38
+  description: Adjectiv, feminin, Genitiv-Dativ, singular, articulat
+  categorie: adjectiv
+  gen: feminin
+  caz: genitiv_dativ
+  plural: false
+  articulat: true
+
+- id: 39
+  description: Adjectiv, feminin, Nominativ-Acuzativ, plural, articulat
+  categorie: adjectiv
+  gen: feminin
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: true
+
+- id: 40
+  description: Adjectiv, feminin, Genitiv-Dativ, plural, articulat
+  categorie: adjectiv
+  gen: feminin
+  caz: genitiv_dativ
+  plural: true
+  articulat: true
+
+- id: 41
+  description: Pronume, masculin, Nominativ-Acuzativ, singular
+  categorie: pronume
+  gen: masculin
+  caz: nominativ_acuzativ
+  plural: false
+
+- id: 42
+  description: Pronume, masculin, Genitiv-Dativ, singular
+  categorie: pronume
+  gen: masculin
+  caz: genitiv_dativ
+  plural: false
+
+- id: 43
+  description: Pronume, masculin, Nominativ-Acuzativ, plural
+  categorie: pronume
+  gen: masculin
+  caz: nominativ_acuzativ
+  plural: true
+
+- id: 44
+  description: Pronume, masculin, Genitiv-Dativ, plural
+  categorie: pronume
+  gen: masculin
+  caz: genitiv_dativ
+  plural: true
+
+- id: 45
+  description: Pronume, feminin, Nominativ-Acuzativ, singular
+  categorie: pronume
+  gen: feminin
+  caz: nominativ_acuzativ
+  plural: false
+
+- id: 46
+  description: Pronume, feminin, Genitiv-Dativ, singular
+  categorie: pronume
+  gen: feminin
+  caz: genitiv_dativ
+  plural: false
+
+- id: 47
+  description: Pronume, feminin, Nominativ-Acuzativ, plural
+  categorie: pronume
+  gen: feminin
+  caz: nominativ_acuzativ
+  plural: true
+
+- id: 48
+  description: Pronume, feminin, Genitiv-Dativ, plural
+  categorie: pronume
+  gen: feminin
+  caz: genitiv_dativ
+  plural: true
+
+- id: 49
+  description: Verb, Infinitiv prezent
+  categorie: verb
+  mod: infinitiv
+
+- id: 50
+  description: Verb, Infinitiv lung
+  categorie: verb
+  mod: infinitiv
+
+- id: 51
+  description: Verb, Imperativ, persoana a II-a, singular
+  categorie: verb
+  mod: imperativ
+  persoana: ii
+  plural: false
+
+- id: 52
+  description: Verb, Participiu pasiv
+  categorie: verb
+  mod: participiu
+
+- id: 53
+  description: Verb, Gerunziu
+  categorie: verb
+  mod: gerunziu
+
+- id: 54
+  description: Verb, Indicativ, prezent, persoana I, singular
+  categorie: verb
+  mod: indicativ
+  timp: prezent
+  persoana: i
+  plural: false
+
+- id: 55
+  description: Verb, Indicativ, prezent, persoana a II-a, singular
+  categorie: verb
+  mod: indicativ
+  timp: prezent
+  persoana: ii
+  plural: false
+
+- id: 56
+  description: Verb, Indicativ, prezent, persoana a III-a, singular
+  categorie: verb
+  mod: indicativ
+  timp: prezent
+  persoana: iii
+  plural: false
+
+- id: 57
+  description: Verb, Indicativ, prezent, persoana I, plural
+  categorie: verb
+  mod: indicativ
+  timp: prezent
+  persoana: i
+  plural: true
+
+- id: 58
+  description: Verb, Indicativ, prezent, persoana a II-a, plural
+  categorie: verb
+  mod: indicativ
+  timp: prezent
+  persoana: ii
+  plural: true
+
+- id: 59
+  description: Verb, Indicativ, prezent, persoana a III-a, plural
+  categorie: verb
+  mod: indicativ
+  timp: prezent
+  persoana: iii
+  plural: true
+
+- id: 60
+  description: Verb, Conjunctiv, prezent, persoana I, singular
+  categorie: verb
+  mod: conjunctiv
+  timp: prezent
+  persoana: i
+  plural: false
+
+- id: 61
+  description: Verb, Conjunctiv, prezent, persoana a II-a, singular
+  categorie: verb
+  mod: conjunctiv
+  timp: prezent
+  persoana: ii
+  plural: false
+
+- id: 62
+  description: Verb, Conjunctiv, prezent, persoana a III-a, singular
+  categorie: verb
+  mod: conjunctiv
+  timp: prezent
+  persoana: iii
+  plural: false
+
+- id: 63
+  description: Verb, Conjunctiv, prezent, persoana I, plural
+  categorie: verb
+  mod: conjunctiv
+  timp: prezent
+  persoana: i
+  plural: true
+
+- id: 64
+  description: Verb, Conjunctiv, prezent, persoana a II-a, plural
+  categorie: verb
+  mod: conjunctiv
+  timp: prezent
+  persoana: ii
+  plural: true
+
+- id: 65
+  description: Verb, Conjunctiv, prezent, persoana a III-a, plural
+  categorie: verb
+  mod: conjunctiv
+  timp: prezent
+  persoana: iii
+  plural: true
+
+- id: 66
+  description: Verb, Indicativ, imperfect, persoana I, singular
+  categorie: verb
+  mod: indicativ
+  timp: imperfect
+  persoana: i
+  plural: false
+
+- id: 67
+  description: Verb, Indicativ, imperfect, persoana a II-a, singular
+  categorie: verb
+  mod: indicativ
+  timp: imperfect
+  persoana: ii
+  plural: false
+
+- id: 68
+  description: Verb, Indicativ, imperfect, persoana a III-a, singular
+  categorie: verb
+  mod: indicativ
+  timp: imperfect
+  persoana: iii
+  plural: false
+
+- id: 69
+  description: Verb, Indicativ, imperfect, persoana I, plural
+  categorie: verb
+  mod: indicativ
+  timp: imperfect
+  persoana: i
+  plural: true
+
+- id: 70
+  description: Verb, Indicativ, imperfect, persoana a II-a, plural
+  categorie: verb
+  mod: indicativ
+  timp: imperfect
+  persoana: ii
+  plural: true
+
+- id: 71
+  description: Verb, Indicativ, imperfect, persoana a III-a, plural
+  categorie: verb
+  mod: indicativ
+  timp: imperfect
+  persoana: iii
+  plural: true
+
+- id: 72
+  description: Verb, Indicativ, perfect simplu, persoana I, singular
+  categorie: verb
+  mod: indicativ
+  timp: perfect_simplu
+  persoana: i
+  plural: false
+
+- id: 73
+  description: Verb, Indicativ, perfect simplu, persoana a II-a, singular
+  categorie: verb
+  mod: indicativ
+  timp: perfect_simplu
+  persoana: ii
+  plural: false
+
+- id: 74
+  description: Verb, Indicativ, perfect simplu, persoana a III-a, singular
+  categorie: verb
+  mod: indicativ
+  timp: perfect_simplu
+  persoana: iii
+  plural: false
+
+- id: 75
+  description: Verb, Indicativ, perfect simplu, persoana I, plural
+  categorie: verb
+  mod: indicativ
+  timp: perfect_simplu
+  persoana: i
+  plural: true
+
+- id: 76
+  description: Verb, Indicativ, perfect simplu, persoana a II-a, plural
+  categorie: verb
+  mod: indicativ
+  timp: perfect_simplu
+  persoana: ii
+  plural: true
+
+- id: 77
+  description: Verb, Indicativ, perfect simplu, persoana a III-a, plural
+  categorie: verb
+  mod: indicativ
+  timp: perfect_simplu
+  persoana: iii
+  plural: true
+
+- id: 78
+  description: Verb, Indicativ, mai mult ca perfect, persoana I, singular
+  categorie: verb
+  mod: indicativ
+  timp: mai_mult_ca_perfect
+  persoana: i
+  plural: false
+
+- id: 79
+  description: Verb, Indicativ, mai mult ca perfect, persoana a II-a, singular
+  categorie: verb
+  mod: indicativ
+  timp: mai_mult_ca_perfect
+  persoana: ii
+  plural: false
+
+- id: 80
+  description: Verb, Indicativ, mai mult ca perfect, persoana a III-a, singular
+  categorie: verb
+  mod: indicativ
+  timp: mai_mult_ca_perfect
+  persoana: iii
+  plural: false
+
+- id: 81
+  description: Verb, Indicativ, mai mult ca perfect, persoana I, plural
+  categorie: verb
+  mod: indicativ
+  timp: mai_mult_ca_perfect
+  persoana: i
+  plural: true
+
+- id: 82
+  description: Verb, Indicativ, mai mult ca perfect, persoana a II-a, plural
+  categorie: verb
+  mod: indicativ
+  timp: mai_mult_ca_perfect
+  persoana: ii
+  plural: true
+
+- id: 83
+  description: Verb, Indicativ, mai mult ca perfect, persoana a III-a, plural
+  categorie: verb
+  mod: indicativ
+  timp: mai_mult_ca_perfect
+  persoana: iii
+  plural: true
+
+- id: 84
+  description: Invariabil
+  categorie: invariabil
+
+- id: 85
+  description: Formă unică
+  categorie: forma_unica
+
+- id: 86
+  description: Verb, Imperativ, persoana a II-a, plural
+  categorie: verb
+  mod: imperativ
+  persoana: ii
+  plural: true
+
+- id: 87
+  description: Substantiv masculin, Vocativ, singular
+  categorie: substantiv
+  gen: masculin
+  caz: vocativ
+  plural: false
+
+- id: 88
+  description: Substantiv masculin, Vocativ, plural
+  categorie: substantiv
+  gen: masculin
+  caz: vocativ
+  plural: true
+
+- id: 89
+  description: Substantiv feminin, Vocativ, singular
+  categorie: substantiv
+  gen: feminin
+  caz: vocativ
+  plural: false
+
+- id: 90
+  description: Substantiv feminin, Vocativ, plural
+  categorie: substantiv
+  gen: feminin
+  caz: vocativ
+  plural: true
+
+- id: 91
+  description: Substantiv neutru, Vocativ, singular
+  categorie: substantiv
+  gen: neutru
+  caz: vocativ
+  plural: false
+
+- id: 92
+  description: Substantiv neutru, Vocativ, plural
+  categorie: substantiv
+  gen: neutru
+  caz: vocativ
+  plural: true
+
+- id: 93
+  description: Adjectiv, masculin, Vocativ, singular
+  categorie: adjectiv
+  gen: masculin
+  caz: vocativ
+  plural: false
+
+- id: 94
+  description: Adjectiv, masculin, Vocativ, plural
+  categorie: adjectiv
+  gen: masculin
+  caz: vocativ
+  plural: true
+
+- id: 95
+  description: Adjectiv, feminin, Vocativ, singular
+  categorie: adjectiv
+  gen: feminin
+  caz: vocativ
+  plural: false
+
+- id: 96
+  description: Adjectiv, feminin, Vocativ, plural
+  categorie: adjectiv
+  gen: feminin
+  caz: vocativ
+  plural: true
+
+- id: 98
+  description: Substantiv propriu, Nominativ-Acuzativ, singular, nearticulat
+  categorie: substantiv_propriu
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: false
+
+- id: 99
+  description: Substantiv propriu, Genitiv-Dativ, singular, nearticulat
+  categorie: substantiv_propriu
+  caz: genitiv_dativ
+  plural: false
+  articulat: false
+
+- id: 100
+  description: Substantiv propriu, Nominativ-Acuzativ, plural, nearticulat
+  categorie: substantiv_propriu
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: false
+
+- id: 101
+  description: Substantiv propriu, Genitiv-Dativ, plural, nearticulat
+  categorie: substantiv_propriu
+  caz: genitiv_dativ
+  plural: true
+  articulat: false
+
+- id: 102
+  description: Substantiv propriu, Nominativ-Acuzativ, singular, articulat
+  categorie: substantiv_propriu
+  caz: nominativ_acuzativ
+  plural: false
+  articulat: true
+
+- id: 103
+  description: Substantiv propriu, Genitiv-Dativ, singular, articulat
+  categorie: substantiv_propriu
+  caz: genitiv_dativ
+  plural: false
+  articulat: true
+
+- id: 104
+  description: Substantiv propriu, Nominativ-Acuzativ, plural, articulat
+  categorie: substantiv_propriu
+  caz: nominativ_acuzativ
+  plural: true
+  articulat: true
+
+- id: 105
+  description: Substantiv propriu, Genitiv-Dativ, plural, articulat
+  categorie: substantiv_propriu
+  caz: genitiv_dativ
+  plural: true
+  articulat: true
+
+- id: 106
+  description: Verb, Participiu pasiv lung
+  categorie: verb
+  mod: participiu
+
+- id: 107
+  description: Verb, Gerunziu lung
+  categorie: verb
+  mod: gerunziu

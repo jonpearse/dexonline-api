@@ -1,0 +1,2 @@
+brew "treefmt"
+brew "watchexec"

@@ -1,0 +1,32 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Defaults for all files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+max_line_length = 120
+trim_trailing_whitespace = true
+# Yes, I know: controversial, but ultimately tabs allow users to set indent size based on preference/screen size/whatever
+# is more readable/discernable for them.
+indent_style = tab
+# merely a suggestion, and can be removed with impugnity should you desire
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[Makefile]
+indent_size = 4
+
+[*.{rb,rake}]
+# The Ruby styleguide states 2 spaces, so we’ll do that
+indent_style = space
+# It also states 80 character lines
+max_line_length = 80
+
+[*.{yml,yaml,haml}]
+indent_style = space
