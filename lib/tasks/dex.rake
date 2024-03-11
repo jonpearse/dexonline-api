@@ -36,14 +36,35 @@ namespace :dex do
     # Load full information
     load_lexemes(xtext(xml, "//Full/Lexems"))
     load_entries(xtext(xml, "//Full/Entries"))
+    load_definitions(xtext(xml, "//Full/Definitions"))
 
-    # Mapping of entries to lexemes
-    map_entries_lexemes(xtext(xml,"//Full/EntryLexemMap"))
+    # Mapping of entries to lexemes and definitions
+    map_entries_lexemes(xtext(xml, "//Full/EntryLexemMap"))
+    map_entries_definitions(xtext(xml, "//Full/EntryDefinitionMap"))
 
     # TODO: diffs
 
     # record the update
     DB[:dictionary_updates].insert(update_date: current_version)
+  end
+
+  def sync_sources(uri)
+    Source.unrestrict_primary_key
+
+    xml = load_xml(uri, "sources")
+    with_progress(xml.xpath("//Source"), "Sources") do |node|
+      id = node["id"]
+
+      source = Source[id] || Source.new(id: id)
+
+      source.update(
+        short_name: xtext(node, "ShortName"),
+        name: xtext(node, "Name"),
+        author: xtext(node, "Author"),
+        publisher: xtext(node, "Publisher"),
+        year: xtext(node, "Year").to_i,
+      )
+    end
   end
 
   def load_lexemes(uri)
@@ -91,6 +112,18 @@ namespace :dex do
     end
   end
 
+  def load_definitions(uri)
+    xml = load_xml(uri, "definitions")
+    with_progress(xml.xpath("//Definition"), "Definitions") do |node|
+      Definition.insert(
+        id: node["id"],
+        source_id: xtext(node, "SourceId").to_i,
+        user_name: xtext(node, "UserName"),
+        text: xtext(node, "Text"),
+      )
+    end
+  end
+
   def map_entries_lexemes(uri)
     xml = load_xml(uri, "entry–lexeme map")
 
@@ -109,6 +142,28 @@ namespace :dex do
         "INSERT INTO entries_lexemes (entry_id, lexeme_id) VALUES (?, ?)",
         node["entryId"],
         node["lexemId"]
+      ].insert
+    end
+  end
+
+  def map_entries_definitions(uri)
+    xml = load_xml(uri, "entry–definition map")
+
+    # unmap anything that needs removing
+    with_progress(xml.xpath("//Unmap"), "Pruning E–D map") do |node|
+      DB[
+        "DELETE FROM definitions_entries WHERE entry_id = ? AND definition_id = ?",
+        node["entryId"],
+        node["definitionId"]
+      ].delete
+    end
+
+    # Insert new links
+    with_progress(xml.xpath("//Map"), "Adding E–D map") do |node|
+      DB[
+        "INSERT INTO definitions_entries (entry_id, definition_id) VALUES (?, ?)",
+        node["entryId"],
+        node["definitionId"]
       ].insert
     end
   end
