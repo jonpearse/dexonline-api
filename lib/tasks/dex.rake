@@ -19,6 +19,7 @@ namespace :dex do
     require "models/inflection_form"
     require "models/inflection"
     require "models/lexeme"
+    require "models/source"
 
     # find the last time we updated
     last_update = DB[:dictionary_updates].order(Sequel.desc(:update_date)).last
@@ -34,6 +35,8 @@ namespace :dex do
     puts "\nImporting update #{current_version.bold}"
 
     # Load full information
+    sync_sources(xtext(xml, "//Full/Sources"))
+    sync_abbrevations(xtext(xml, "//Full/Abbrevs"))
     load_lexemes(xtext(xml, "//Full/Lexems"))
     load_entries(xtext(xml, "//Full/Entries"))
     load_definitions(xtext(xml, "//Full/Definitions"))
@@ -64,6 +67,19 @@ namespace :dex do
         publisher: xtext(node, "Publisher"),
         year: xtext(node, "Year").to_i,
       )
+    end
+  end
+
+  def sync_abbrevations(uri)
+    xml = load_xml(uri, "abbreviations")
+    with_progress(xml.xpath("//Abbrev"), "Abbreviations") do |node|
+      params = {
+        source_id: node.parent["id"].to_i,
+        short: node["short"].strip,
+      }
+
+      abbreviation = Abbreviation.where(params).first || Abbreviation.new(params)
+      abbreviation.update(text: get_text(node).unicode_normalize)
     end
   end
 
