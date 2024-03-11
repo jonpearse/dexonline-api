@@ -35,6 +35,10 @@ namespace :dex do
 
     # Load full information
     load_lexemes(xtext(xml, "//Full/Lexems"))
+    load_entries(xtext(xml, "//Full/Entries"))
+
+    # Mapping of entries to lexemes
+    map_entries_lexemes(xtext(xml,"//Full/EntryLexemMap"))
 
     # TODO: diffs
 
@@ -74,6 +78,38 @@ namespace :dex do
           })
         end
       end
+    end
+  end
+
+  def load_entries(uri)
+    xml = load_xml(uri, "entries")
+    with_progress(xml.xpath("//Entry"), "Entries") do |node|
+      Entry.insert(
+        id: node["id"],
+        description: xtext(node, "Description"),
+      )
+    end
+  end
+
+  def map_entries_lexemes(uri)
+    xml = load_xml(uri, "entry–lexeme map")
+
+    # unmap anything that needs removing
+    with_progress(xml.xpath("//Unmap"), "Pruning E–L map") do |node|
+      DB[
+        "DELETE FROM entries_lexemes WHERE entry_id = ? AND lexeme_id = ?",
+        node["entryId"],
+        node["lexemId"]
+      ].delete
+    end
+
+    # Insert new links
+    with_progress(xml.xpath("//Map"), "Adding E–L map") do |node|
+      DB[
+        "INSERT INTO entries_lexemes (entry_id, lexeme_id) VALUES (?, ?)",
+        node["entryId"],
+        node["lexemId"]
+      ].insert
     end
   end
 
