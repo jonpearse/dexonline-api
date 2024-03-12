@@ -3,4 +3,4 @@
 [formatter.rufo]
 command = "rufo"
 options = [ "-x" ]
-includes = [ "*.rb", "*.erb", "*.rake" ]
+includes = [ "*.rb", "*.erb", "*.rake", "*.jbuilder", "*.ru" ]

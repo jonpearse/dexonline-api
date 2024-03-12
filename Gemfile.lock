@@ -1,13 +1,47 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    actionview (7.1.3.2)
+      activesupport (= 7.1.3.2)
+      builder (~> 3.1)
+      erubi (~> 1.11)
+      rails-dom-testing (~> 2.2)
+      rails-html-sanitizer (~> 1.6)
+    activesupport (7.1.3.2)
+      base64
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      connection_pool (>= 2.2.5)
+      drb
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      mutex_m
+      tzinfo (~> 2.0)
+    base64 (0.2.0)
     bigdecimal (3.1.6)
+    builder (3.2.4)
     coderay (1.1.3)
     colorize (1.1.0)
+    concurrent-ruby (1.2.3)
+    connection_pool (2.4.1)
+    crass (1.0.6)
     dotenv (3.1.0)
+    drb (2.2.1)
+    erubi (1.12.0)
     excon (0.109.0)
+    i18n (1.14.4)
+      concurrent-ruby (~> 1.0)
+    jbuilder (2.11.5)
+      actionview (>= 5.0.0)
+      activesupport (>= 5.0.0)
+    loofah (2.22.0)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.12.0)
     method_source (1.0.0)
+    minitest (5.22.2)
+    mutex_m (0.2.0)
     mysql2 (0.5.6)
+    nio4r (2.7.0)
     nokogiri (1.16.2-aarch64-linux)
       racc (~> 1.4)
     nokogiri (1.16.2-arm-linux)
@@ -23,12 +57,30 @@ GEM
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    puma (6.4.2)
+      nio4r (~> 2.0)
     racc (1.7.3)
+    rack (3.0.9.1)
+    rails-dom-testing (2.2.0)
+      activesupport (>= 5.0.0)
+      minitest
+      nokogiri (>= 1.6)
+    rails-html-sanitizer (1.6.0)
+      loofah (~> 2.21)
+      nokogiri (~> 1.14)
     rake (13.1.0)
+    roda (3.77.0)
+      rack
     ruby-progressbar (1.13.0)
     rufo (0.17.1)
     sequel (5.78.0)
       bigdecimal
+    tilt (2.3.0)
+    tilt-jbuilder (0.7.1)
+      jbuilder
+      tilt (>= 1.3.0, < 3)
+    tzinfo (2.0.6)
+      concurrent-ruby (~> 1.0)
     values (1.8.0)
     zlib (3.1.0)
 
@@ -44,13 +96,17 @@ DEPENDENCIES
   colorize
   dotenv
   excon
+  jbuilder
   mysql2
   nokogiri
   pry
+  puma
   rake
+  roda
   ruby-progressbar
   rufo
   sequel
+  tilt-jbuilder
   values
   zlib
 
