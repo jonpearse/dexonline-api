@@ -25,37 +25,57 @@ namespace :dex do
     last_update = DB[:dictionary_updates].order(Sequel.desc(:update_date)).last
       &.fetch(:update_date)&.to_s || "0"
 
-    xml = load_xml("#{DEX_UPDATE_URI}?last=#{last_update}", "latest data", gzip: false)
-    current_version = xml.xpath("/Files/Full/@date").first.value
-    if current_version == last_update
-      puts "No updates found: exiting"
+    xml = load_xml("#{DEX_UPDATE_URI}?last=#{last_update}", "updates since last run", gzip: false)
+
+    # check we have a full node, otherwise we are unable to work out what the
+    # current state should be
+    full_node = xml.xpath("//Full").first
+    unless full_node
+      puts "#{"Error:".bold.red} update file does not contain a <Full> node!"
+      exit 1
+    end
+
+    # if there are no updates, bail out
+    if full_node["date"] == last_update
+      puts "Already up-to-date!"
       exit
     end
 
-    puts "\nImporting update #{current_version.bold}"
+    # sources and abbrevations are always present in every update + should
+    # probably be synched
+    print_header("Importing full data from #{full_node["date"].bold}")
+    sync_sources(xtext(full_node, "Sources"))
+    sync_abbrevations(xtext(full_node, "Abbrevs"))
 
-    # Load full information
-    sync_sources(xtext(xml, "//Full/Sources"))
-    sync_abbrevations(xtext(xml, "//Full/Abbrevs"))
-    load_lexemes(xtext(xml, "//Full/Lexems"))
-    load_entries(xtext(xml, "//Full/Entries"))
-    load_definitions(xtext(xml, "//Full/Definitions"))
+    # Load the remainder of the Full node, if present
+    install_update(full_node)
 
-    # Mapping of entries to lexemes and definitions
-    map_entries_lexemes(xtext(xml, "//Full/EntryLexemMap"))
-    map_entries_definitions(xtext(xml, "//Full/EntryDefinitionMap"))
+    # Now iterate through diffs
+    xml.xpath("//Diffs/Diff").each do |diff_node|
+      print_header("Importing diff from #{diff_node["date"].bold}")
+      install_update(diff_node)
+    end
 
-    # TODO: diffs
+    # record the update + done
+    DB[:dictionary_updates].insert(update_date: full_node["date"])
+  end
 
-    # record the update
-    DB[:dictionary_updates].insert(update_date: current_version)
+  def install_update(node)
+    # data
+    xtext(node, "Lexems") { |uri| load_lexemes(uri) }
+    xtext(node, "Entries") { |uri| load_entries(uri) }
+    xtext(node, "Definitions") { |uri| load_definitions(uri) }
+
+    # mapping
+    xtext(node, "EntryLexemMap") { |uri| map_entries_lexemes(uri) }
+    xtext(node, "EntryDefinitionMap") { |uri| map_entries_definitions(uri) }
   end
 
   def sync_sources(uri)
     Source.unrestrict_primary_key
 
     xml = load_xml(uri, "sources")
-    with_progress(xml.xpath("//Source"), "Sources") do |node|
+    with_progress(xml.xpath("//Source"), "Inserting") do |node|
       id = node["id"]
 
       source = Source[id] || Source.new(id: id)
@@ -72,7 +92,7 @@ namespace :dex do
 
   def sync_abbrevations(uri)
     xml = load_xml(uri, "abbreviations")
-    with_progress(xml.xpath("//Abbrev"), "Abbreviations") do |node|
+    with_progress(xml.xpath("//Abbrev"), "Inserting") do |node|
       params = {
         source_id: node.parent["id"].to_i,
         short: node["short"].strip,
@@ -85,7 +105,7 @@ namespace :dex do
 
   def load_lexemes(uri)
     xml = load_xml(uri, "lexemes")
-    with_progress(xml.xpath("//Lexem"), "Lexemes") do |node|
+    with_progress(xml.xpath("//Lexem"), "Inserting") do |node|
       # get the inflection form for the lexeme
       form = node.xpath("InflectedForm")
         .map { |n| InflectionForm[get_text(n).to_i] }
@@ -120,7 +140,7 @@ namespace :dex do
 
   def load_entries(uri)
     xml = load_xml(uri, "entries")
-    with_progress(xml.xpath("//Entry"), "Entries") do |node|
+    with_progress(xml.xpath("//Entry"), "Inserting") do |node|
       Entry.insert(
         id: node["id"],
         description: xtext(node, "Description"),
@@ -130,7 +150,7 @@ namespace :dex do
 
   def load_definitions(uri)
     xml = load_xml(uri, "definitions")
-    with_progress(xml.xpath("//Definition"), "Definitions") do |node|
+    with_progress(xml.xpath("//Definition"), "Inserting") do |node|
       Definition.insert(
         id: node["id"],
         source_id: xtext(node, "SourceId").to_i,
@@ -144,7 +164,7 @@ namespace :dex do
     xml = load_xml(uri, "entry–lexeme map")
 
     # unmap anything that needs removing
-    with_progress(xml.xpath("//Unmap"), "Pruning E–L map") do |node|
+    with_progress(xml.xpath("//Unmap"), "Pruning") do |node|
       DB[
         "DELETE FROM entries_lexemes WHERE entry_id = ? AND lexeme_id = ?",
         node["entryId"],
@@ -153,7 +173,7 @@ namespace :dex do
     end
 
     # Insert new links
-    with_progress(xml.xpath("//Map"), "Adding E–L map") do |node|
+    with_progress(xml.xpath("//Map"), "Inserting") do |node|
       DB[
         "INSERT INTO entries_lexemes (entry_id, lexeme_id) VALUES (?, ?)",
         node["entryId"],
@@ -166,7 +186,7 @@ namespace :dex do
     xml = load_xml(uri, "entry–definition map")
 
     # unmap anything that needs removing
-    with_progress(xml.xpath("//Unmap"), "Pruning E–D map") do |node|
+    with_progress(xml.xpath("//Unmap"), "Pruning") do |node|
       DB[
         "DELETE FROM definitions_entries WHERE entry_id = ? AND definition_id = ?",
         node["entryId"],
@@ -175,7 +195,7 @@ namespace :dex do
     end
 
     # Insert new links
-    with_progress(xml.xpath("//Map"), "Adding E–D map") do |node|
+    with_progress(xml.xpath("//Map"), "Inserting") do |node|
       DB[
         "INSERT INTO definitions_entries (entry_id, definition_id) VALUES (?, ?)",
         node["entryId"],
@@ -237,6 +257,7 @@ namespace :dex do
     end
 
     pb.finish
+    puts
   end
 
   def get_text(node)
@@ -246,6 +267,22 @@ namespace :dex do
   end
 
   def xtext(node, selector)
-    get_text(node.xpath(selector))
+    found = node.xpath(selector)
+    return nil unless found.any?
+
+    text = get_text(found)
+
+    yield text if block_given?
+    text
+  end
+
+  def print_header(str)
+    padding = "=" * (str.uncolorize.length + 2)
+
+    puts
+    puts padding
+    puts " #{str}"
+    puts padding
+    puts
   end
 end
