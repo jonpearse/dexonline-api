@@ -1,11 +1,11 @@
 json.query @qry
-json.results @results do |entry|
+json.results @results do |entry, lexemes|
   json.id entry.id
   json.description entry.description
 
   # links out to lexemes (so we can get to them without having to load the
   # full entry…)
-  json.lexems entry.lexemes.each do |lexeme|
+  json.lexems lexemes.each do |lexeme|
     json.id lexeme.id
     json.word lexeme.word
     json.categorie lexeme.categorie
