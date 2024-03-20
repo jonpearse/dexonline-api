@@ -81,7 +81,18 @@ class App < Roda
     end
 
     # return the corresponding entries + render
-    @results = lexemes.map(&:entries).flatten.uniq { |e| e.id }
+    # Note that we want to render lexemes (to avoid the user having to make
+    # more queries than required), and these lexemes should probably be filtered
+    # by a category is required, therefore…
+    @results = lexemes.map(&:entries).flatten.uniq { |e| e.id }.map do |entry|
+      lexemes = if category
+          entry.lexemes_dataset.where(categorie: category).all
+        else
+          entry.lexemes
+        end
+
+      [entry, lexemes]
+    end
     render(:search)
   end
 end
