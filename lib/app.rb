@@ -41,14 +41,14 @@ class App < Roda
 
       # More complex search routes
       r.get "search", String, String do |category, query|
-        category.downcase!
+        cat_qry = category.downcase.split(/[\+,]/)
 
-        unless CATEGORIES.include?(category)
+        unless (cat_qry - CATEGORIES).empty?
           response.status = 404
           return
         end
 
-        perform_search(query, category: category)
+        perform_search(query, categories: cat_qry)
       end
 
       r.get "search", String do |query|
@@ -61,11 +61,11 @@ class App < Roda
     "#{ENV.fetch("APP_URL")}/v1/#{path}"
   end
 
-  private def perform_search(query, category: nil)
+  private def perform_search(query, categories: nil)
     @qry = {
       normalised: CGI.unescape(query).unicode_normalize(:nfd).gsub(/[^\x00-\x7F]/, ""),
     }
-    @qry[:categorie] = category if category
+    @qry[:categorie] = categories if categories
 
     # perform the search
     lexemes = Lexeme.where(@qry)
@@ -85,8 +85,8 @@ class App < Roda
     # more queries than required), and these lexemes should probably be filtered
     # by a category is required, therefore…
     @results = lexemes.map(&:entries).flatten.uniq { |e| e.id }.map do |entry|
-      lexemes = if category
-          entry.lexemes_dataset.where(categorie: category).all
+      lexemes = if categories
+          entry.lexemes_dataset.where(categorie: categories).all
         else
           entry.lexemes
         end

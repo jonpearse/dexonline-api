@@ -55,6 +55,13 @@ Note that—as with dexonline’s site search—this doesn’t search inflected 
 
 Performs a lexeme search as above, but restricts results by word type (that is: verb, noun, adjective, etc). Inflections are not searched by default, but can be searched by adding `?full` as above.
 
+Multiple types can be searched using either a comma or plus sign (‘+’) as a delimiter, thus:
+
+```
+	# search for nouns + verbs matching ‘pui’
+	/v1/search/substantiv,verb/pui
+```
+
 **Permitted values of `categorie`**
 
 * `adjectiv`
