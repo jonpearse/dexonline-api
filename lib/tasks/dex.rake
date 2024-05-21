@@ -41,23 +41,26 @@ namespace :dex do
       exit
     end
 
-    # sources and abbrevations are always present in every update + should
-    # probably be synched
-    print_header("Importing full data from #{full_node["date"].bold}")
-    sync_sources(xtext(full_node, "Sources"))
-    sync_abbrevations(xtext(full_node, "Abbrevs"))
+    # Run everything in a transaction
+    DB.transaction do
+      # sources and abbrevations are always present in every update + should
+      # probably be synched
+      print_header("Importing full data from #{full_node["date"].bold}")
+      sync_sources(xtext(full_node, "Sources"))
+      sync_abbrevations(xtext(full_node, "Abbrevs"))
 
-    # Load the remainder of the Full node, if present
-    install_update(full_node)
+      # Load the remainder of the Full node, if present
+      install_update(full_node)
 
-    # Now iterate through diffs
-    xml.xpath("//Diffs/Diff").each do |diff_node|
-      print_header("Importing diff from #{diff_node["date"].bold}")
-      install_update(diff_node)
+      # Now iterate through diffs
+      xml.xpath("//Diffs/Diff").each do |diff_node|
+        print_header("Importing diff from #{diff_node["date"].bold}")
+        install_update(diff_node)
+      end
+
+      # record the update + done
+      DB[:dictionary_updates].insert(update_date: full_node["date"])
     end
-
-    # record the update + done
-    DB[:dictionary_updates].insert(update_date: full_node["date"])
   end
 
   def install_update(node)
@@ -112,28 +115,26 @@ namespace :dex do
         .uniq { |f| f.categorie }
         .first
 
-      DB.transaction do
-        Lexeme.import(xtext(node, "Form"), {
-          id: node["id"],
-          categorie: form.categorie,
-          gen: form.gen,
+      Lexeme.import(xtext(node, "Form"), {
+        id: node["id"],
+        categorie: form.categorie,
+        gen: form.gen,
+      })
+
+      order = 0
+      last_form_id = nil
+      node.xpath("InflectedForm").each do |inflection|
+        form_id = xtext(inflection, "InflectionId")
+
+        # if we have multiple of the same form, store a sequence
+        order = form_id == last_form_id ? order + 1 : 0
+        last_form_id = form_id
+
+        Inflection.import(xtext(inflection, "Form"), {
+          lexeme_id: node["id"],
+          form_id: form_id,
+          order: order,
         })
-
-        order = 0
-        last_form_id = nil
-        node.xpath("InflectedForm").each do |inflection|
-          form_id = xtext(inflection, "InflectionId")
-
-          # if we have multiple of the same form, store a sequence
-          order = form_id == last_form_id ? order + 1 : 0
-          last_form_id = form_id
-
-          Inflection.import(xtext(inflection, "Form"), {
-            lexeme_id: node["id"],
-            form_id: form_id,
-            order: order,
-          })
-        end
       end
     end
   end
